@@ -17,4 +17,4 @@ jobs:
       - uses: actions/checkout@v3
       - uses: DeterminateSystems/nix-installer-action@main
       # - uses: DeterminateSystems/magic-nix-cache-action@main
-      - run: nix-build -A darwin.Libsystem 'https://github.com/NixOS/nixpkgs/archive/7872526e9c5332274ea5932a0c3270d6e4724f3b.tar.gz'
+      - run: nix-build --option substituters "" -A darwin.Libsystem 'https://github.com/NixOS/nixpkgs/archive/7872526e9c5332274ea5932a0c3270d6e4724f3b.tar.gz'
