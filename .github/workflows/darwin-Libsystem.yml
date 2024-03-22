@@ -10,6 +10,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [macos-13, macos-12, macos-11]
+        pkgs: [release-23.11, release-23.05, release-22.11, release-22.05, release-21.11, release-21.05]
     runs-on: ${{ matrix.os }}
     permissions:
       contents: read
@@ -18,4 +19,4 @@ jobs:
       - uses: actions/checkout@v3
       - uses: DeterminateSystems/nix-installer-action@main
       # - uses: DeterminateSystems/magic-nix-cache-action@main
-      - run: nix-build --option substituters "" -A darwin.Libsystem 'https://github.com/NixOS/nixpkgs/archive/7872526e9c5332274ea5932a0c3270d6e4724f3b.tar.gz'
+      - run: nix-build --option substituters "" -A darwin.Libsystem 'https://github.com/NixOS/nixpkgs/archive/${{ matrix.pkgs }}.tar.gz'
