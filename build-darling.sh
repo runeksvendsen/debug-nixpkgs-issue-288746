@@ -2,12 +2,11 @@
 
 set -euxo pipefail
 
-NIXPKGS="$1"
+PKGS="$1"
 
-for drv in $(nix-build --option substituters "" --option store "local?root=$(pwd)/tmp_store" -A darwin.Libsystem "$NIXPKGS" 2>&1 |grep 'source.drv$'); do
-  if ! nix derivation show "$drv^*"|jq ".\"$drv\".env.urls"|grep darling; then
-    continue
-  fi
+DRV=$(nix-instantiate --option substituters "" -A darwin.Libsystem "$PKGS")
 
-  nix-build --check "$drv"
+for source in $(nix derivation show "$DRV^*" |jq -r ".\"$DRV\".inputDrvs | keys[]"|grep "source.drv$"); do
+  nix-build --check $source
 done
+
