@@ -18,5 +18,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: DeterminateSystems/nix-installer-action@main
-      # - uses: DeterminateSystems/magic-nix-cache-action@main
-      - run: nix-build --option substituters "" -A darwin.Libsystem 'https://github.com/NixOS/nixpkgs/archive/${{ matrix.pkgs }}.tar.gz'
+      - run: ./build-darling.sh 'https://github.com/NixOS/nixpkgs/archive/${{ matrix.pkgs }}.tar.gz'
