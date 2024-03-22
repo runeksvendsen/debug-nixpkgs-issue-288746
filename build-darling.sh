@@ -1,4 +1,6 @@
-set -e
+#!/usr/bin/env bash
+
+set -euxo pipefail
 
 NIXPKGS="$1"
 
