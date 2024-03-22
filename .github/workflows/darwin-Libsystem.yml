@@ -1,0 +1,20 @@
+name: darwin-Libsystem
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  nix-build:
+    strategy:
+      matrix:
+        os: [macos-13, macos-12, macos-11]
+    runs-on: ${{ matrix.os }}
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v3
+      - uses: DeterminateSystems/nix-installer-action@main
+      # - uses: DeterminateSystems/magic-nix-cache-action@main
+      - run: nix-build -A darwin.Libsystem 'https://github.com/NixOS/nixpkgs/archive/7872526e9c5332274ea5932a0c3270d6e4724f3b.tar.gz'
